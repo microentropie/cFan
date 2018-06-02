@@ -17,6 +17,7 @@ Sources repository: https://github.com/microentropie/
 #include "machineUtl.h"
 #include "debugUtl.h"
 #include "common.h"
+#include "commonString.h"
 
 
 
@@ -51,7 +52,11 @@ void cFanMachine::Init(MachineConfigModel *pMachineConfig)
   stopTimer();
   ZeroVariables();
   machineIOs.Init(pMachineConfig->bConnectionLedShow, pMachineConfig->temperatureScale);
-  int temperature = machineIOs.GetTemperature();
+  int temperature = machineIOs.ForceTemperatureRead();
+#ifdef VERBOSE_SERIAL
+  Serial.print("temperature: ");
+  Serial.println(TemperatureToString(temperature, machineIOs.GetTemperatureUnits()));
+#endif //VERBOSE_SERIAL
   strncpy(Description, pMachineConfig->Description, sizeof(Description));
   Serial.print("Description=");
   Serial.println(Description);

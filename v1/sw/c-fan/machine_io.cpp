@@ -16,6 +16,8 @@ Sources repository: https://github.com/microentropie/
 #include "common_io.h"
 #include "common.h"
 #include "debugUtl.h"
+#include "commonString.h"
+
 
 
 #if !_ADC_TEMPERATURE_
@@ -219,15 +221,21 @@ int MachineIo::GetTemperature()
 
   return adc;
 #else
-  // as tempereature readin is slow and ad temperature changes slowly
+  // as temperature read-in is slow and temperature changes slowly
   // just cache the value
   if(millis() - lastTemperatureReadin < 31000) return temperatureCachedValue;
+  
+  return ForceTemperatureRead();
+#endif
+}
 
+int MachineIo::ForceTemperatureRead()
+{
   // call sensors.requestTemperatures() to issue a global temperature 
   // request to all devices on the bus
   pSensors->requestTemperatures(); // Send the command to get temperatures 
-                                 // After we got the temperatures, we can print them here.
-                                 // We use the function ByIndex, and as an example get the temperature from the first sensor only.
+                                   // After we got the temperatures, we can print them here.
+                                   // We use the function ByIndex, and as an example get the temperature from the first sensor only.
   int t = 0;
   switch (temperatureScale)
   {
@@ -254,7 +262,6 @@ int MachineIo::GetTemperature()
   lastTemperatureReadin = millis();
 
   return t;
-#endif
 }
 
 

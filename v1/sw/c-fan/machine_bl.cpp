@@ -21,6 +21,9 @@ Sources repository: https://github.com/microentropie/
 #include "machine_bl.h"
 #include "machine_events.h"
 #include "common.h"
+#include "commonString.h"
+
+
 
 cFanMachine cFan;
 

@@ -27,6 +27,7 @@ public:
   void ForceWiFiOn();
   bool AreLedsEnabled();
   int  GetTemperature();
+  int  ForceTemperatureRead();
   temperatureUnits_e GetTemperatureUnits();
 
 private:
