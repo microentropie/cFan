@@ -8,5 +8,6 @@
 void IrRxStart();
 uint64_t IrRxLoop();
 void IrRxStop();
+bool IsIrEnabled();
 
 #endif //_IR_RECEIVE_H_

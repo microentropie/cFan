@@ -4,6 +4,7 @@
 extern void IrInit();
 extern void IrResume();
 extern void IrLoop();
+extern bool IsIrEnabled();
 
 #include "Ir_model.h"
 extern bool IrConfig_Save(IrConfigModel &cfg);

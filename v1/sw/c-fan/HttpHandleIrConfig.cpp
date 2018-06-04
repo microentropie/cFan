@@ -86,14 +86,22 @@ void handleConfigIr()
   webServer.sendContent("<br />");
   SingleLoadConfig("light", &saveCfg.light);
 
-  webServer.sendContent(
+  if (!IsIrEnabled())
+    webServer.sendContent(F(
+      "<br>IR receiver is OFF, IR commands (codes) will not be received.<br>"
+      "1) ENABLE IR receiver<br>"
+      "2) Save<br>"
+      "3) Restart"
+    ));
+
+  webServer.sendContent(F(
     "<br /><div>"
     "<textarea id='IrRxTxt' name='IrReceivedLog' cols='60' rows='5' readonly>received IR codes will go here</textarea>"
     "<button type='button' onclick='AjaxIrCodes()'>Check Now</button>"
     "</div><br />"
-    );
+  ));
     
-  webServer.sendContent(
+  webServer.sendContent(F(
     "<br />"
     "<p><FONT style='color:orange'><b>Will need to Save, then reboot for the changes to take effect !</b></FONT></p>"
     "<br />"
@@ -102,10 +110,10 @@ void handleConfigIr()
     //"<input type='submit' name='Default' value='Load Defaults'/>"
     "</form>\n"
     "<p>restart the machine <a href='/config-restart-now'>NOW</a></p>"
-  );
+  ));
   webServer.sendContent(COPYRIGHT);
-  webServer.sendContent("</body></html>");
-  webServer.sendContent("<noscript>Sorry, your browser does not support JavaScript!</noscript>");
+  webServer.sendContent(F("</body></html>"));
+  webServer.sendContent(F("<noscript>Sorry, your browser does not support JavaScript!</noscript>"));
   webServer.sendContent("");
   webServer.client().stop(); // Stop is needed because we sent no content length
 }
@@ -121,7 +129,7 @@ void handleConfigIrSave()
   Serial.print(FPSTR(__func__));
   Serial.println(FPSTR("()"));
   logDetails();
-  if (webServer.args() < 8 || webServer.args() > 9)
+  if (webServer.args() < 9 || webServer.args() > 10)
   {
     Serial.print("Bad number of args; args=");
     Serial.println(webServer.args());

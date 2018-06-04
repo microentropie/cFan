@@ -62,6 +62,11 @@ uint16_t CAPTURE_BUFFER_SIZE = 1024;
 
 static IRrecv *pIrRecv = NULL;
 
+bool IsIrEnabled()
+{
+  return pIrRecv != NULL;
+}
+
 void IrRxStart()
 {
   /*

@@ -301,7 +301,7 @@ void handleShutDown()
   webServer.sendContent(
     F(
     "<body>"
-    "WiFi diconnection in progress<br>"
+    "WiFi disconnection in progress<br>"
     "Update firmware via serial/usb<br>"
     "<br>"
     "Web server will not respond !<br>"
